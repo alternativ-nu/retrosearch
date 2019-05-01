@@ -1,0 +1,23 @@
+Package: retrosearch
+Title: Search Permaculture Content From "Åter" - A Swedish Magazine
+Version: 0.7
+Authors@R: 
+    person(given = "Markus",
+           family = "Skyttner",
+           role = c("aut", "cre"),
+           email = "markus@recraft.me")
+Description: Provides a Shiny app for searching content published in the magazine Åter
+License: AGPL-3
+Encoding: UTF-8
+LazyData: no
+RoxygenNote: 6.1.0
+Imports: 
+    shiny,
+    RSQLite,
+    tibble,
+    dplyr,
+    readxl,
+    lubridate,
+    xml2,
+    httr,
+    rdrop2

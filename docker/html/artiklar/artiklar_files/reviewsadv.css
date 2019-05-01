@@ -1,0 +1,204 @@
+@CHARSET "utf-8";
+
+div#fb-con-wrapper {
+	width: 500px;
+	padding: 20px 25px;
+	position: fixed;
+	bottom: 50%;
+	left: 50%;
+	margin-left: -250px;
+	z-index: 9999;
+	background-color: #EEE;
+	color: #444;
+	border-radius: 5px;
+	font-size: 14px;
+	font-weight: bold;
+	display: none;
+	box-shadow: 0 0 27px 0 #111;
+	text-align: center;
+	line-height: 1em;
+}
+
+div#fb-con {
+	filter: alpha(opacity=70);
+	-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=70)";	
+	opacity: 0.7;
+	background-color: #444;	
+	width: 100%;
+	height: 100%;	
+	cursor: pointer;
+	z-index: 9998;
+	position: fixed;
+	bottom: 0;
+	top: 0;
+	left:0;
+	display: none;	
+}
+
+
+
+.button-bottom-add-review{text-align:center;display:none;margin-bottom:10px}
+
+#add-review-form {background-color:#FAFAFA;
+				  margin-top:20px;
+				  padding:5px;
+				  border:1px solid #C4C4C4;
+				  /*display:none*/
+				}
+
+#add-review-form .title-rev{
+    border-bottom: 1px solid #C4C4C4;
+    font-weight: bold;
+    padding: 5px 10px;
+}
+
+#add-review-form .title-form-text-left{
+	float:left;
+	margin-top:10px;
+}
+
+#add-review-form .title-form-text-right{
+	float:right;margin-bottom:0px
+}
+
+#add-review-form table{
+	margin-top:10px;
+	width:100%;
+	           
+}
+
+#add-review-form .form-left{
+    font-size: 12px;
+    font-weight: bold;
+    padding: 0 10px;
+    width: 30%;
+    line-height:2.5em;
+    text-align:right;
+}
+
+#add-review-form .recommended-review{
+	font-size: 12px;
+    font-weight: bold;
+    padding: 0 10px;
+    line-height:2.5em
+	
+}
+
+#add-review-form .yes-review{color:#67983B}
+#add-review-form .no-review{color:#C63300}
+#add-review-form .form-right{width:70%}
+
+.clear-reviewsadv{clear:both}
+
+
+.text-no-reg{text-align:center;font-weight:bold}
+.no-reg-button{text-align:center}
+
+.advertise-text-review{ 
+	background-color: #FAFAFA;
+    border: 1px solid #C4C4C4;
+    padding: 10px;
+}
+
+.advertise-text-review img{vertical-align: sub;}
+
+
+.gsniprev-table-reviews{width:100%; background-color: #FAFAFA; border: 1px solid #C4C4C4;margin-bottom:10px}
+.gsniprev-table-reviews td{padding:5px}
+.gsniprev-left-title{width:50%}
+.gsniprev-right-title{width:50%;text-align:right}
+
+.gsniprev-left{width:10%}
+.gsniprev-right{width:90%;text-align:left}
+
+
+.pages { height:15px; font-size:100%; margin-top:20px; line-height:1.2em;  }
+.pages span, .pages b, .pages a { font-weight:bold; }
+.pages a{color:#fff}
+.pages span { padding:1px 8px 2px 0; }
+.pages span.nums { padding:0 10px 0 5px; }
+.pages span.nums b, .pages span.nums a { padding:0px 4px 1px; background:#ccc; text-decoration:none; margin-right:4px; }
+
+
+.gsniprev-block{background-color: #FAFAFA;
+				border: 1px solid #C4C4C4;
+				margin:10px 0; 
+				clear:both;
+				padding:10px;
+				max-width:230px;
+				text-align:left;
+				}
+
+.gsniprev-block-reviews-text {float:left;margin-left:5px;margin-top:2px;font-weight:bold}
+.gsniprev-rating-block-table{width:100%}
+.gsniprev-rating-block{border: 1px solid #C4C4C4;background-color:#fff;padding:10px}
+.gsniprev-rating-block-left{width:65%;text-align:left}
+.gsniprev-rating-block-right{width:35%;text-align:left}
+
+.items-last-reviewsadvs table td, table th { padding: 1px 1px !important; font-family: Arial, Helvetica, sans-serif;
+font-size: 15px;
+font-style: normal;
+font-variant: normal;
+font-weight: 500;
+height: auto;
+line-height: 18px;
+font-family: Arial, Helvetica, sans-serif;
+background: none ;
+/* padding: 5px !important; */}
+
+				
+.items-last-reviewsadvs table td a{background:none!important;}
+.block-last-reviewsadvs h4{text-align:center}		
+.gsniprev-img-star{float:left;width:13px;height:13px}
+.gsniprev-img-star-category{float:left;width:13px;height:13px}
+.gsniprev-block-noreviews{padding:10px;text-align:center}	
+
+.gsniprev-view-all{margin:10px auto 0px auto;text-align:right}
+.gsniprev-img-star-all{float:left;}
+				
+				
+.reviewsadvs-float-left{float:left;margin-top:2px}
+.reviewsadvs-float-right{float:right}
+.reviewsadvs-clear{clear:both}
+				
+.catalog-stars{margin:10px 0 10px 10px;float:right}
+.catalog-rating{float:right;margin:10px 10px 10px 5px;color:#666666!important}
+				
+.inpCaptchaReview {
+    font-size: 13px;
+    margin-left: 10px;
+    margin-top: 2px;
+    min-height: 18px;
+}
+.float-left{float:left}
+.clr {
+    clear: both;
+    display: block;
+    font-size: 0;
+    line-height: 0;
+    overflow: hidden;
+}
+
+.gsniprev-block-16{background-color: none;
+			/*	border: 1px solid #C4C4C4;*/
+				margin:8px 0; 
+				clear:both;
+				padding:10px;
+				max-width:270px;
+				text-align:left;
+				}
+				
+.gsniprev-block-16 table.gsniprev-rating-block-table td{padding:0px!important}
+				
+.margin-left-5{margin-left:5px}
+				
+#button-close{
+    background: url("../i/fancybox.png") repeat scroll -40px 0 transparent;
+    cursor: pointer;
+    height: 30px;
+    position: absolute;
+    right: -15px;
+    top: -15px;
+    width: 30px;
+    z-index: 1103;
+}

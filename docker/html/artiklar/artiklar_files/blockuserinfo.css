@@ -1,0 +1,35 @@
+.header_user_info_1 {
+  /*float: right;
+  border-left: 1px solid #515151;
+  border-right: 1px solid #515151; */
+float:left;
+padding-top: 10px;
+}
+.header_user_info_2 {
+  /*float: right;
+  border-left: 1px solid #515151;
+  border-right: 1px solid #515151; */
+float:left;
+padding-top: 10px;
+height: 33px;
+}
+  .header_user_info_1 a {
+    color: black;
+    font-weight: bold;
+    display: block;
+     cursor: pointer; }
+    @media (max-width: 768px) {
+      .header_user_info_1 a {
+        font-size: 12px; } }
+    .header_user_info a:hover, .header_user_info a.active {
+      /*background: #2b2b2b;*/ }
+    
+
+    .header_user_info_2 a {
+    color: black;
+    font-weight: bold;
+    display: block;
+    padding: 0 9px 15px;
+    cursor: pointer; }
+    @media (max-width: 768px) {
+      }
