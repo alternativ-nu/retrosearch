@@ -32,14 +32,20 @@ articles <- function() {
     arrange(-desc(topic)) %>%
     left_join(available_pubs, by = c("publication")) %>%
     mutate(Thumb = ifelse(!is.na(thumb), 
-          paste0("<a target='_blank' href='", "https://www.alternativ.nu/butik/åter/åter-", q, y, ".html","'><img height=120 src='", thumb, "'/></a>"),
-          NA)) %>%
+          paste0("<a target='_new' href='", "https://www.alternativ.nu/butik/åter/åter-", q, y, ".html","'><img height=120 src='", thumb, "'/></a>"),
+          "<img height=120 src='missing.png'/>")) %>%
     mutate(Source = ifelse(!is.na(thumb),
-          paste0("<a target='_blank' href='", "https://www.alternativ.nu/butik/åter/åter-", q, y, ".html","'>", paste0(title, " av ", author, " (", paste(publication, page), ")"), "</a>"), 
+          paste0("<a target='_new' href='", "https://www.alternativ.nu/butik/åter/åter-", q, y, ".html","'>", paste0(title, " av ", author, " (", paste(publication, page), ")"), "</a>"), 
           NA))
   
   articles
   
 }
 
-articles <- articles()
+articles <- 
+  articles() %>% 
+  left_join(ps_pubs()) %>%
+  mutate(shop_a = ifelse(!is.na(shop_url),
+    sprintf("<a target='_blank' href='%s' class='btn btn-default'>Köp Åter nr %s</a>", shop_url, publication),
+    NA))
+

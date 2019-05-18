@@ -29,12 +29,17 @@ server <- function(input, output, session) {
   rdt <- function(df) { 
     renderDataTable(df, 
       #rownames = FALSE, 
-      escape = FALSE, 
+      escape = FALSE,
+#      filter = "top",
       options = list(
-        dom = "fpt", pageLength = 4,
+        ordering = FALSE,
+#        dom = "fpt", 
+        pageLength = 100,
+        autoWidth = TRUE,
 #        columns = list(sPlaceHolder = "head:before"),
         scrollX = TRUE,
         info = FALSE,
+        paging = FALSE,
         lengthChange = FALSE,
         language = list(
           search = "Sök", 
@@ -68,21 +73,22 @@ server <- function(input, output, session) {
       if (length(input$group) > 0)
         res <- res %>% filter(topic %in% input$group)
 
-      res <- res %>%
-          mutate(pub = sprintf("%s-%s", year, nr)) %>%
-          arrange(desc(year)) %>%
-          mutate(`Källa` = paste(publication, "s.", page)) %>%
-#          mutate(Artikel = Source) %>%
-          mutate(Artikel = paste0(title, " av ", author, " (", `Källa`, ")")) %>%
-          mutate(Sammanfattning = ifelse(is.na(ingress), title, ingress)) %>%
-          mutate(`Åternummer` = ifelse(is.na(Thumb), `Källa`, Thumb)) %>%
-          mutate(Artikel = ifelse(is.na(Source), Artikel, Source)) %>%
-          select(Sammanfattning, `Åternummer`, Artikel)
-        # TODO för Artikel, om source är NA använd istället nedanstående
-        # TODO för Åternummer, om Thumb är NA använd `Källa`
-        # TODO för Sammanfattning, om ingress är NA använd "ingress saknas"
-
-      res
+      pub_summary(res)
+#       res <- res %>%
+#           mutate(pub = sprintf("%s-%s", year, nr)) %>%
+#           arrange(desc(year)) %>%
+#           mutate(`Källa` = paste(publication, "s.", page)) %>%
+# #          mutate(Artikel = Source) %>%
+#           mutate(Artikel = paste0(title, " av ", author, " (", `Källa`, ")")) %>%
+#           mutate(Sammanfattning = ifelse(is.na(ingress), title, ingress)) %>%
+#           mutate(`Åternummer` = ifelse(is.na(Thumb), `Källa`, Thumb)) %>%
+#           mutate(Artikel = ifelse(is.na(Source), Artikel, Source)) %>%
+#           select(Sammanfattning, `Åternummer`, Artikel)
+#         # TODO för Artikel, om source är NA använd istället nedanstående
+#         # TODO för Åternummer, om Thumb är NA använd `Källa`
+#         # TODO för Sammanfattning, om ingress är NA använd "ingress saknas"
+# 
+#       res
     })
 
     # observeEvent(input$contact_click_send, {
