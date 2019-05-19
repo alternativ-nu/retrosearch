@@ -1,0 +1,71 @@
+version: '3.7'
+
+volumes:
+  data_certs:
+  data_vhost:
+  data_html:
+
+services:
+
+  dnsmasq:
+    image: andyshinn/dnsmasq:2.76
+    command: --log-facility=-
+    cap_add:
+       - NET_ADMIN
+    ports:
+      - 172.17.0.1:53:53/tcp
+      - 172.17.0.1:53:53/udp
+    links:
+      - proxy:retrosearch.recraft.me
+    depends_on:
+      - proxy
+
+  proxy:
+    image: jwilder/nginx-proxy:alpine
+    init: true
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+      - data_certs:/etc/nginx/certs:ro
+      - data_vhost:/etc/nginx/vhost.d
+      - data_html:/usr/share/nginx/html
+    labels:
+      - "com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy"
+    depends_on:
+      - app
+
+  letsencrypt:
+    image: jrcs/letsencrypt-nginx-proxy-companion
+    init: true
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - data_certs:/etc/nginx/certs
+      - data_vhost:/etc/nginx/vhost.d
+      - data_html:/usr/share/nginx/html
+    depends_on:
+      - proxy
+ 
+  web:
+    image: nginx:alpine
+    init: true
+    volumes:
+      - ./html:/usr/share/nginx/html:ro
+      - ./default.conf:/etc/nginx/conf.d/default.conf
+    environment:
+      - VIRTUAL_HOST=retrosearch.recraft.me
+      - LETSENCRYPT_HOST=retrosearch.recraft.me
+      - LETSENCRYPT_EMAIL=roger@recraft.me
+    depends_on:
+      - app
+ 
+  app:
+    image: recraft/retrosearch:latest
+    env_file: ./env/.environment
+    volumes:
+      - ./shiny-server.conf:/etc/shiny-server/shiny-server.conf
+      - ./env/.environment:/home/shiny/.Renviron
+    ports:
+      - "3838:3838"
+
