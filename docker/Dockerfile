@@ -1,6 +1,9 @@
 FROM bioatlas/mirroreum:0.9.1
 
-COPY retrosearch_0.6.tar.gz /tmp/retrosearch.tar.gz
+RUN install2.r --error \
+	rdrop2
+
+COPY retrosearch.tar.gz /tmp/retrosearch.tar.gz
 
 RUN R CMD INSTALL /tmp/retrosearch.tar.gz
 

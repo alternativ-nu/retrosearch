@@ -1,9 +1,16 @@
 #! make
 
-all: build up browse
+VER := 0.7
+#PKGSRC := $(shell basename `pwd`)
+
+all: clean build up browse
 
 build:
-	docker build -t recraft/retrosearch:0.6 -t recraft/retrosearch:latest .
+	#cd ..; R -e "devtools::build()"
+	cd ..; R CMD build --no-manual .
+	cd ..; mv retrosearch_$(VER).tar.gz docker
+	cp retrosearch_$(VER).tar.gz retrosearch.tar.gz
+	docker build -t recraft/retrosearch:$(VER) -t recraft/retrosearch:latest .
 
 up:
 	docker-compose up -d
@@ -16,5 +23,6 @@ browse:
 
 browse-ext:
 	firefox https://retrosearch.recraft.me &
-
-
+	
+release:
+	docker push recraft/retrosearch:$(VER) recraft/retrosearch:latest

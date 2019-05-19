@@ -9,7 +9,7 @@ pub_summary <- function(articles) {
   coll <- function(x, sep = ", ") paste(collapse = sep, na.omit(unique(x)))
   li <- function(text) paste0("<li>", text, "</li>")
 
-  articles %>%
+  res <- articles %>%
 #  View()
   group_by(year, nr, publication, Thumb, availability) %>%
   summarise(
@@ -24,5 +24,7 @@ pub_summary <- function(articles) {
   mutate(desc = paste0(u, "<br/>", "<p>", t, "</p>"))  %>%
   #mutate(img = sprintf("<a href='%s'><img src='%s'/>/a>", NA, thumb)) %>%
   ungroup() %>% select(Publikation = Thumb, Innehåll = desc)
+#  ungroup() %>% select(Innehåll = desc, Publikation = Thumb)
 
+  res
 }

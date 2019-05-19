@@ -6,7 +6,9 @@ ps_products <- function() {
   
   res <- 
     GET("http://alternativ.nu/butik/api/products?output_format=JSON",
-      authenticate(userpass, userpass))
+      verbose(), authenticate(userpass, userpass), timeout(seconds = 30))
+  
+  warn_for_status(res)
   
   content(res) %>% 
   xml_find_all("//p") %>% 
@@ -48,22 +50,31 @@ ps_product <- function(id) {
 #' The Prestashop API allows for getting webshop links
 #' 
 #' @return a tibble with product data from prestashop
-#' @importFrom httr GET authenticate
+#' @import httr
 #' @import xml2 jsonlite dplyr stringr
 #' @export
 ps_pubs <- function() {
   
   userpass <- Sys.getenv("PRESTASHOP_TOKEN")
-
+  
+  #cat(file = stderr(), "GET to prestashop with userpass ", userpass, "\n")
+  
   url <- paste0(
     "http://alternativ.nu/butik/api/products?output_format=JSON",
     "&display=[id,name,link_rewrite,active,available_for_order,",
     "description_short]&filter[active]=[0|1]"
   )
   
+  # NB: this timeout setting of 30 is set as app_init_timeout in shiny-server.conf
   res <- 
-    GET(sprintf(url), authenticate(userpass, userpass))
+    GET(sprintf(url), authenticate(userpass, userpass), 
+        timeout(30), config(timeout_ms = 30000, timeout = 30))
 
+  cat(file = stderr(), "status ", res$status, 
+      " and time:", res$time["total"], "\n")
+
+  warn_for_status(res)
+  
   data <- content(res) %>% xml_text() %>% fromJSON()
   
   as_tibble(data$products) %>% 
