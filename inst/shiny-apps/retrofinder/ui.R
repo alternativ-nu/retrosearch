@@ -1,5 +1,6 @@
 library(shiny)
 library(shinydashboard)
+library(DT)
 
 ui <- function(request) {
 
@@ -44,7 +45,7 @@ ui <- function(request) {
     dashboardBody(
 #      tabItem(tabName = "tab1",
         fluidRow(valueBoxOutput("credits")),
-        fluidRow(box(width = 12, DT::dataTableOutput("table1")))
+        fluidRow(box(width = "100%", DT::dataTableOutput("table1")))
 #      )
     )
   )

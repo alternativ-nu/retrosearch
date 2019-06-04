@@ -12,34 +12,47 @@ server <- function(input, output, session) {
     
     message("here")
     
-    DT::renderDataTable(server = TRUE, expr = out(), escape = FALSE, rownames = FALSE, 
+    # TODO: kolla detta - ska expr wrappas i DT::datatable?????
+    DT::renderDataTable(server = TRUE, expr = DT::datatable(out(), 
+      escape = FALSE, # TODO: bug with rownames = FALSE param!
       options = list(
-        ordering = FALSE,
-        dom = "ft", 
-        pageLength = 100,
-        autoWidth = TRUE,
-        scrollX = TRUE,
-        info = FALSE,
-        paging = FALSE,
-        lengthChange = FALSE,
-        language = list(
-          search = "Sök", 
+         columnDefs = list(list(visible = FALSE, targets = c(3))),
+         dom = "ft", 
+         pageLength = 100,
+         ordering = FALSE,
+         language = list(
+          search = "Sök",
           paginate = list(
-            first = "Första sidan", 
-            last = "Sista sidan", 
-            `next` = "Nästa sida", 
+            first = "Första sidan",
+            last = "Sista sidan",
+            `next` = "Nästa sida",
             previous = "Föregående sida"))
-    ))}
+      ))) #, #escape = FALSE), 
+      # escape = FALSE, rownames = FALSE, 
+      # options = list(
+      #   columnDefs = list(list(visible = FALSE, targets = c(3))), 
+      #   escape = FALSE,
+      #   ordering = FALSE,
+      #   dom = "ft", 
+      #   pageLength = 100,
+      #   autoWidth = TRUE,
+      #   scrollX = TRUE,
+      #   info = FALSE,
+      #   paging = FALSE,
+      #   lengthChange = FALSE,
+
+      # ))
+}
   
     out <- reactive({
 
       req(input$date)
       req(input$group)
       
-      validate(need(!is.na(input$date[1]) & !is.na(input$date[2]), 
+      shiny::validate(need(!is.na(input$date[1]) & !is.na(input$date[2]), 
         "Error: Please provide both a start and an end date."))
       
-      validate(need(input$date[1] < input$date[2], 
+      shiny::validate(need(input$date[1] < input$date[2], 
         "Error: Start date should be earlier than end date."))
       
       res <- articles %>% filter(
@@ -59,7 +72,11 @@ server <- function(input, output, session) {
       if (length(input$group) > 0)
         res <- res %>% filter(topic %in% input$group)
 
-      pub_summary(res)
+      out <- retrosearch_articles_summary(res)
+      
+      #out %>% tibble::remove_rownames()
+      
+      #rownames(out) <- NULL
       
     })
 
@@ -69,10 +86,10 @@ server <- function(input, output, session) {
       
       req(input$subscriber)
       
-      validate(need(!is.na(input$subscriber) & 
+      shiny::validate(need(!is.na(input$subscriber) & 
         input$subscriber %in% subscriber_pnrs(), 
           "Fel: Ange en giltig prenumerantkod"))
-      
+    
       subscriber_credit(input$subscriber)
       
     })

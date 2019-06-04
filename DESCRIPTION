@@ -1,6 +1,6 @@
 Package: retrosearch
-Title: Search Permaculture Content From "Åter" - A Swedish Magazine
-Version: 0.7
+Title: Search Content From "Åter" - A Swedish Permaculture Magazine
+Version: 0.8
 Authors@R: 
     person(given = "Markus",
            family = "Skyttner",
@@ -13,11 +13,11 @@ LazyData: no
 RoxygenNote: 6.1.0
 Imports: 
     shiny,
-    RSQLite,
     tibble,
     dplyr,
     readxl,
     lubridate,
     xml2,
     httr,
-    rdrop2
+    rappdirs,
+    purrr

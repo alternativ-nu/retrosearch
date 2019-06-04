@@ -1,6 +1,6 @@
 #! make
 
-VER := 0.7
+VER := 0.8
 #PKGSRC := $(shell basename `pwd`)
 
 all: clean build up browse
@@ -23,6 +23,7 @@ browse:
 
 browse-ext:
 	firefox https://retrosearch.recraft.me &
-	
+
 release:
-	docker push recraft/retrosearch:$(VER) recraft/retrosearch:latest
+	docker push recraft/retrosearch:$(VER) 
+	docker push recraft/retrosearch:latest

@@ -4,6 +4,7 @@ volumes:
   data_certs:
   data_vhost:
   data_html:
+  data_retrosearch:
 
 services:
 
@@ -66,6 +67,8 @@ services:
     volumes:
       - ./shiny-server.conf:/etc/shiny-server/shiny-server.conf
       - ./env/.environment:/home/shiny/.Renviron
+      - data_retrosearch:/home/shiny/.config/retrosearch
+      
     ports:
       - "3838:3838"
 
